@@ -1,28 +1,30 @@
 <?php
+
+  include('SQL/database.php');
   session_start();
 
-  if (isset($_SESSION['user_id'])) {
-    header('Location: /StudyFans');
-  }
+if (isset($_POST['login'])) {
+  $email = $_POST['mail_user'];
+  $pass = $_POST['password'];
 
-  require 'SQL/database.php';
-  /*$mysqli = new conexion();
-  $mysqli -> conn();*/
-  if (!empty($_POST['mail_user']) && !empty($_POST['pass'])) {
+  
     $records = $conn->prepare('SELECT id_user, mail_user, pass_user FROM tb_users WHERE mail_user = :email');
-    $records->bindParam(':email', $_POST['mail_user']);
+    $records->bindParam('email', $email, PDO::PARAM_STR);
     $records->execute();
+  
     $results = $records->fetch(PDO::FETCH_ASSOC);
 
-    $message = '';
-
-    if (count($results) > 0 && password_verify($_POST['pass'], $results['pass_user'])) {
-      $_SESSION['user_id'] = $results['id_user'];
-      header("Location: /StudyFans/SQL");
+    if (!$results) {
+      echo "Tas bien puñetas";
     } else {
-      $message = 'Lo siento, los datos no coinciden';
+      if (password_verify($pass, $result['pass_user'])) {
+         $_SESSION['user_id'] = $results['id_user'];
+          header("Location: /StudyFans");
+        } else {
+            echo '<p class="error">Username password combination is wrong!</p>';
+        }
     }
-  }
+}
 ?>
 <!DOCTYPE html>
 <html lang="es">
