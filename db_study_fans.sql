@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 24-11-2021 a las 01:23:47
+-- Tiempo de generación: 24-11-2021 a las 04:03:58
 -- Versión del servidor: 10.4.21-MariaDB
 -- Versión de PHP: 8.0.12
 
@@ -66,6 +66,12 @@ END$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_new_like` (`n_id_user` INT, `n_id_video` INT)  BEGIN
 	INSERT INTO tb_videolike (id_like, id_user, id_video)
     VALUES (null, n_id_user, n_id_video);
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_show_update_user` (IN `n_id_user` INT)  BEGIN
+	SELECT firstname_user, lastname_user, mail_user, pass_user, paypal_info, dateBirth, profileDesc 
+    FROM tb_users 
+    WHERE id_user = n_id_user;
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_unfollow` (`n_id_user` INT, `n_id_channel` INT)  BEGIN
