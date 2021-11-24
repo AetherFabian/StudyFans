@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 23-11-2021 a las 19:31:32
+-- Tiempo de generación: 24-11-2021 a las 01:23:47
 -- Versión del servidor: 10.4.21-MariaDB
 -- Versión de PHP: 8.0.12
 
@@ -36,7 +36,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_create_user` (IN `n_firstname_us
             	n_dateBirth_user, n_profileDesc, null, 0);
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_create_video` (IN `n_title_video` VARCHAR(255), IN `n_description_video` VARCHAR(1000), IN `n_status_video` VARCHAR(255), IN `n_id_owner` INT, IN `n_miniature` VARCHAR(255))  BEGIN INSERT INTO tb_videos(id_video, title_video,description_video, posted_at, status_video, views_video, id_owner, num_likes, url_video) VALUES (null, n_title_video, n_description_video, n_status_video, CURRENT_TIMESTAMP, 0, n_id_owner, 0, 0, n_miniature); END$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_create_video` (IN `n_title_video` VARCHAR(255), IN `n_description_video` VARCHAR(1000), IN `n_status_video` VARCHAR(255), IN `n_id_owner` INT, IN `n_miniature` VARCHAR(255), IN `n_filename` INT(255))  BEGIN INSERT INTO tb_videos(id_video, title_video,description_video, posted_at, status_video, views_video, id_owner, num_likes, url_video, miniature, filename) VALUES (null, n_title_video, n_description_video, n_status_video, CURRENT_TIMESTAMP, 0, n_id_owner, 0, 0, n_miniature, n_filename); END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_delate_comment` (IN `n_id_comment` INT)  BEGIN
 	DELETE FROM `tb_comments` WHERE id_comment=n_id_comment;
@@ -249,15 +249,16 @@ CREATE TABLE `tb_videos` (
   `id_owner` int(11) NOT NULL,
   `num_likes` int(11) NOT NULL,
   `url_video` varchar(255) NOT NULL,
-  `miniature` varchar(255) NOT NULL
+  `miniature` varchar(255) NOT NULL,
+  `filename` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `tb_videos`
 --
 
-INSERT INTO `tb_videos` (`id_video`, `title_video`, `description_video`, `posted_at`, `status_video`, `views_video`, `id_owner`, `num_likes`, `url_video`, `miniature`) VALUES
-(1, 'Entrevista Imparfait', NULL, '2021-11-10', 0, 0, 1, 0, '0', '');
+INSERT INTO `tb_videos` (`id_video`, `title_video`, `description_video`, `posted_at`, `status_video`, `views_video`, `id_owner`, `num_likes`, `url_video`, `miniature`, `filename`) VALUES
+(1, 'Entrevista Imparfait', NULL, '2021-11-10', 0, 0, 1, 0, '0', '', '');
 
 --
 -- Disparadores `tb_videos`
