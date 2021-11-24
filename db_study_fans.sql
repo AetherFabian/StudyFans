@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 24-11-2021 a las 04:03:58
+-- Tiempo de generación: 24-11-2021 a las 19:47:25
 -- Versión del servidor: 10.4.21-MariaDB
 -- Versión de PHP: 8.0.12
 
@@ -36,7 +36,25 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_create_user` (IN `n_firstname_us
             	n_dateBirth_user, n_profileDesc, null, 0);
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_create_video` (IN `n_title_video` VARCHAR(255), IN `n_description_video` VARCHAR(1000), IN `n_status_video` VARCHAR(255), IN `n_id_owner` INT, IN `n_miniature` VARCHAR(255), IN `n_filename` INT(255))  BEGIN INSERT INTO tb_videos(id_video, title_video,description_video, posted_at, status_video, views_video, id_owner, num_likes, url_video, miniature, filename) VALUES (null, n_title_video, n_description_video, n_status_video, CURRENT_TIMESTAMP, 0, n_id_owner, 0, 0, n_miniature, n_filename); END$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_create_user_and_channel` (IN `n_firstname_user` VARCHAR(255), IN `n_lastname_user` VARCHAR(255), IN `n_name_user` VARCHAR(255), IN `n_mail_user` VARCHAR(255), IN `n_pass_user` VARCHAR(255), IN `n_paypal_info` VARCHAR(255), IN `n_dateBirth_user` DATE, IN `n_profileDesc` VARCHAR(255))  BEGIN 
+	INSERT INTO tb_users(`id_user`, `firstname_user`, `lastname_user`, `name_user`, 
+												`mail_user`, `pass_user`, `paypal_info`, `created_at`, 
+												`dateBirth_user`, `profileDesc`, `id_channel`, `contentCreator`) 
+	VALUES (null, n_firstname_user, n_lastname_user, n_name_user, n_mail_user, 
+					sha2(n_pass_user,256), n_paypal_info, CURRENT_TIMESTAMP, n_dateBirth_user, 
+					n_profileDesc, null, 0);
+	INSERT INTO tb_channels(`id_channel`, `name_channel`, `num_subs`, `num_videos`, 
+													`info_channel`) 
+	VALUES (null, n_name_user, 0, 0, null);
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_create_video` (IN `n_title_video` VARCHAR(255), IN `n_description_video` VARCHAR(1000), IN `n_status_video` VARCHAR(255), IN `n_id_owner` INT, IN `n_miniature` VARCHAR(255), IN `n_filename` VARCHAR(255))  BEGIN 
+	INSERT INTO tb_videos(id_video, title_video, description_video, posted_at, status_video, 
+													views_video, id_owner, num_likes, url_video, miniature, 
+													filename) 
+	VALUES (null, n_title_video, n_description_video, CURRENT_TIMESTAMP,n_status_video, 0, 
+						n_id_owner, 0, 0, n_miniature, n_filename);
+END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_delate_comment` (IN `n_id_comment` INT)  BEGIN
 	DELETE FROM `tb_comments` WHERE id_comment=n_id_comment;
@@ -56,6 +74,10 @@ END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_delete_video` (IN `n_id_video` INT)  BEGIN
 	DELETE FROM tb_videos WHERE id_video = n_id_video;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_login` (IN `n_id_user` INT, IN `n_email_user` VARCHAR(255), IN `n_pass_user` VARCHAR(255))  BEGIN
+	SELECT email_user, pass_user FROM tb_users WHERE id_user = n_id_user;
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_new_follow` (`n_id_user` INT, `n_id_channel` INT)  BEGIN 
@@ -123,7 +145,11 @@ CREATE TABLE `tb_channels` (
 --
 
 INSERT INTO `tb_channels` (`id_channel`, `name_channel`, `num_subs`, `num_videos`, `info_channel`) VALUES
-(1, 'Tutoriales Josh', 0, 1, NULL);
+(2, 'GusValla', 0, 0, NULL),
+(3, 'Faps13', 0, 0, NULL),
+(4, 'CarSalazar', 0, 0, NULL),
+(5, 'Learn with Josh', 0, 0, NULL),
+(7, 'Test', 0, 1, NULL);
 
 --
 -- Disparadores `tb_channels`
@@ -200,19 +226,11 @@ CREATE TABLE `tb_users` (
 --
 
 INSERT INTO `tb_users` (`id_user`, `firstname_user`, `lastname_user`, `name_user`, `mail_user`, `pass_user`, `paypal_info`, `created_at`, `dateBirth_user`, `profileDesc`, `id_channel`, `contentCreator`) VALUES
-(1, 'Joshua', 'Aviles', 'Tutoriales Josh', 'a6520150001@utch.edu.mx', 'turco07', NULL, '2021-11-10', '2001-02-07', NULL, 1, 0),
-(2, 'Gustavo', 'Valladolid', 'GusValla', 'a6520150033@utch.edu.mx', '1c142b2d01aa34e9a36bde480645a57fd69e14155dacfab5a3f9257b77fdc8d8', 'churrosaurio17@gmail.com', '2021-11-11', '2002-08-17', 'UTCH BIS Student', NULL, 0),
-(3, 'Fabian', 'Escobar', 'Faps13', 'a6520150036@utch.edu.mx', '4fc2b5673a201ad9b1fc03dcb346e1baad44351daa0503d5534b4dfdcc4332e0', NULL, '2021-11-11', '2002-05-13', 'Software Developer JR', NULL, 0),
-(4, 'Carlos', 'Salazar', 'CarSalazar', 'a6520150015@utch.edu.mx', '110198831a426807bccd9dbdf54b6dcb5298bc5d31ac49069e0ba3d210d970ae', 'carlossaulsalazarcruz@gmail.com', '2021-11-11', '2001-08-10', 'Software Developer JR', NULL, 0),
-(5, 'Joshua', 'Aviles', 'Learn with Josh', 'a652015001@utch.edu.mx', '7e4a684d570406798de06e42c873c54df82ba8c178328a73b82d6e0b5e777943', NULL, '2021-11-11', '2001-02-07', 'BIS STUDENT Information Technologies', NULL, 0);
-
---
--- Disparadores `tb_users`
---
-DELIMITER $$
-CREATE TRIGGER `create_channel` AFTER INSERT ON `tb_users` FOR EACH ROW INSERT INTO tb_channels (id_channel, name_channel, num_subs, num_videos, description) VALUES (null, (SELECT NEW.name_user FROM tb_users), '0', '0', null)
-$$
-DELIMITER ;
+(9, 'Gustavo', 'Valladolid', 'GusValla', 'a6520150033@utch.edu.mx', '1c142b2d01aa34e9a36bde480645a57fd69e14155dacfab5a3f9257b77fdc8d8', 'churrosaurio17@gmail.com', '2021-11-24', '2002-08-17', 'UTCH BIS Student', 2, 0),
+(10, 'Fabian', 'Escobar', 'Faps13', 'a6520150036@utch.edu.mx', '4fc2b5673a201ad9b1fc03dcb346e1baad44351daa0503d5534b4dfdcc4332e0', NULL, '2021-11-24', '2002-05-13', 'Software Developer JR', 3, 0),
+(11, 'Carlos', 'Salazar', 'CarSalazar', 'a6520150015@utch.edu.mx', '110198831a426807bccd9dbdf54b6dcb5298bc5d31ac49069e0ba3d210d970ae', 'carlossaulsalazarcruz@gmail.com', '2021-11-24', '2001-08-10', 'Software Developer JR', 4, 0),
+(12, 'Joshua', 'Aviles', 'Learn with Josh', 'a6520150001@utch.edu.mx', '7e4a684d570406798de06e42c873c54df82ba8c178328a73b82d6e0b5e777943', '', '2021-11-24', '2001-02-07', 'TID31BISM', 5, 0),
+(14, 'Test', 'Test', 'Test', 'test@gmail.com', '7e4a684d570406798de06e42c873c54df82ba8c178328a73b82d6e0b5e777943', '', '2021-11-24', '2021-11-24', 'Test', 7, 0);
 
 -- --------------------------------------------------------
 
@@ -264,7 +282,7 @@ CREATE TABLE `tb_videos` (
 --
 
 INSERT INTO `tb_videos` (`id_video`, `title_video`, `description_video`, `posted_at`, `status_video`, `views_video`, `id_owner`, `num_likes`, `url_video`, `miniature`, `filename`) VALUES
-(1, 'Entrevista Imparfait', NULL, '2021-11-10', 0, 0, 1, 0, '0', '', '');
+(5, 'Prueba', 'Prueba', '2021-11-24', 0, 0, 7, 0, '0', 'Captura de pantalla (26).png', 'Captura de pantalla (27).png');
 
 --
 -- Disparadores `tb_videos`
@@ -334,13 +352,13 @@ ALTER TABLE `tb_videos`
 -- AUTO_INCREMENT de la tabla `tb_channels`
 --
 ALTER TABLE `tb_channels`
-  MODIFY `id_channel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_channel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `tb_comments`
 --
 ALTER TABLE `tb_comments`
-  MODIFY `id_comment` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_comment` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `tb_followed`
@@ -352,7 +370,7 @@ ALTER TABLE `tb_followed`
 -- AUTO_INCREMENT de la tabla `tb_users`
 --
 ALTER TABLE `tb_users`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT de la tabla `tb_videolike`
@@ -364,7 +382,7 @@ ALTER TABLE `tb_videolike`
 -- AUTO_INCREMENT de la tabla `tb_videos`
 --
 ALTER TABLE `tb_videos`
-  MODIFY `id_video` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_video` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Restricciones para tablas volcadas
