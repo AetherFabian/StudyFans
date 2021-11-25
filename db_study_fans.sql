@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 25-11-2021 a las 07:06:35
+-- Tiempo de generación: 25-11-2021 a las 23:39:11
 -- Versión del servidor: 10.4.21-MariaDB
 -- Versión de PHP: 8.0.12
 
@@ -25,9 +25,9 @@ DELIMITER $$
 --
 -- Procedimientos
 --
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_create_comment` (IN `n_id_user` INT, IN `n_id_video` INT, IN `n_content` VARCHAR(500))  BEGIN
-		INSERT INTO tb_comments (id_comment,id_user,id_video,commented_at,content)
-		VALUES (null, n_id_user,n_id_video,CURRENT_TIMESTAMP,n_content);
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_create_comment` (IN `n_id_channel` INT, IN `n_id_video` INT, IN `n_content` VARCHAR(500))  BEGIN
+		INSERT INTO tb_comments (id_comment,id_channel,id_video,commented_at,content)
+		VALUES (null, n_id_channel,n_id_video,CURRENT_TIMESTAMP,n_content);
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_create_user` (IN `n_firstname_user` VARCHAR(255), IN `n_lastname_user` VARCHAR(255), IN `n_name_user` VARCHAR(255), IN `n_mail_user` VARCHAR(255), IN `n_pass_user` VARCHAR(255), IN `n_paypal_info` VARCHAR(255), IN `n_dateBirth_user` DATE, IN `n_profileDesc` VARCHAR(255))  BEGIN
@@ -64,8 +64,8 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_delete_channel` (IN `n_id_channe
 	DELETE FROM tb_channels WHERE id_channel=n_id_channel;
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_delete_like` (`n_id_like` INT, `n_id_user` INT)  BEGIN
-	DELETE FROM tb_videolike WHERE id_like = n_id_like AND id_user = n_id_user;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_delete_like` (IN `n_id_like` INT, IN `n_id_channel` INT)  BEGIN
+	DELETE FROM tb_videolike WHERE id_like = n_id_like AND id_channel = n_id_channel;
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_delete_user` (IN `n_id_user` INT)  BEGIN
@@ -80,13 +80,13 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_login` (IN `n_mail_user` VARCHAR
 	SELECT id_user, mail_user, pass_user FROM tb_users WHERE mail_user = n_mail_user;
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_new_follow` (`n_id_user` INT, `n_id_channel` INT)  BEGIN 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_new_follow` (IN `n_id_user` INT, IN `n_id_channel` INT)  BEGIN 
 	INSERT INTO tb_videolike (id_follow, id_user, id_channel) 
     VALUES (null, n_id_user, n_id_channel); 
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_new_like` (`n_id_user` INT, `n_id_video` INT)  BEGIN
-	INSERT INTO tb_videolike (id_like, id_user, id_video)
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_new_like` (IN `n_id_channel` INT, IN `n_id_video` INT)  BEGIN
+	INSERT INTO tb_videolike (id_like, id_, id_video)
     VALUES (null, n_id_user, n_id_video);
 END$$
 
@@ -109,9 +109,9 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_update_channel` (IN `n_id_channe
 	WHERE id_channel=n_id_channel;
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_update_comment` (IN `n_id_user` INT, IN `n_id_video` INT, IN `n_content` VARCHAR(500))  BEGIN 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_update_comment` (IN `n_id_channel` INT, IN `n_id_video` INT, IN `n_content` VARCHAR(500))  BEGIN 
 	UPDATE tb_comments SET posted_at = CURRENT_TIMESTAMP, content=n_content 
-    WHERE id_video=n_id_video AND id_user=n_id_user; 
+    WHERE id_video=n_id_video AND id_channel=n_id_channel; 
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_update_user` (IN `n_id_user` INT, IN `n_firstname_user` VARCHAR(255), IN `n_lastname_user` VARCHAR(255), IN `n_mail_user` VARCHAR(255), IN `n_paypal_info` VARCHAR(255), IN `n_dateBirth_user` DATE, IN `n_profileDesc` VARCHAR(255))  BEGIN 
@@ -170,7 +170,7 @@ DELIMITER ;
 
 CREATE TABLE `tb_comments` (
   `id_comment` int(11) NOT NULL,
-  `id_user` int(11) NOT NULL,
+  `id_channel` int(11) NOT NULL,
   `id_video` int(11) NOT NULL,
   `commented_at` date NOT NULL,
   `content` varchar(500) NOT NULL
@@ -227,7 +227,7 @@ CREATE TABLE `tb_users` (
 --
 
 INSERT INTO `tb_users` (`id_user`, `firstname_user`, `lastname_user`, `name_user`, `mail_user`, `pass_user`, `paypal_info`, `created_at`, `dateBirth_user`, `profileDesc`, `id_channel`, `contentCreator`) VALUES
-(1, 'Joshua', 'Aviles', 'Learn with Josh', 'a6520150001@utch.edu.mx', '$2y$10$zq5Oz4vEPZqYZrOSgPuztOqCQoUsjtBtuyTKxNM.o0r8y7b8oqVfu', '', '2021-11-24', '2001-02-07', 'TID31BISM', 1, 0);
+(1, 'Joshua Alexis', 'Aviles', 'Learn with Josh', 'a6520150001@utch.edu.mx', '$2y$10$zq5Oz4vEPZqYZrOSgPuztOqCQoUsjtBtuyTKxNM.o0r8y7b8oqVfu', '', '2021-11-24', '2001-02-07', 'TID31BISM', 1, 0);
 
 -- --------------------------------------------------------
 
@@ -237,7 +237,7 @@ INSERT INTO `tb_users` (`id_user`, `firstname_user`, `lastname_user`, `name_user
 
 CREATE TABLE `tb_videolike` (
   `id_like` int(11) NOT NULL,
-  `id_user` int(11) NOT NULL,
+  `id_channel` int(11) NOT NULL,
   `id_video` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -308,16 +308,16 @@ ALTER TABLE `tb_channels`
 --
 ALTER TABLE `tb_comments`
   ADD PRIMARY KEY (`id_comment`),
-  ADD KEY `id_user` (`id_user`),
-  ADD KEY `id_video` (`id_video`);
+  ADD KEY `id_video` (`id_video`),
+  ADD KEY `id_channel` (`id_channel`);
 
 --
 -- Indices de la tabla `tb_followed`
 --
 ALTER TABLE `tb_followed`
   ADD PRIMARY KEY (`id_follow`),
-  ADD KEY `id_user` (`id_user`),
-  ADD KEY `id_channel` (`id_channel`);
+  ADD KEY `id_channel` (`id_channel`),
+  ADD KEY `id_user` (`id_user`);
 
 --
 -- Indices de la tabla `tb_users`
@@ -331,8 +331,8 @@ ALTER TABLE `tb_users`
 --
 ALTER TABLE `tb_videolike`
   ADD PRIMARY KEY (`id_like`),
-  ADD KEY `id_user` (`id_user`),
-  ADD KEY `id_video` (`id_video`);
+  ADD KEY `id_video` (`id_video`),
+  ADD KEY `id_channel` (`id_channel`);
 
 --
 -- Indices de la tabla `tb_videos`
@@ -389,15 +389,17 @@ ALTER TABLE `tb_videos`
 -- Filtros para la tabla `tb_comments`
 --
 ALTER TABLE `tb_comments`
-  ADD CONSTRAINT `tb_comments_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `tb_users` (`id_user`),
-  ADD CONSTRAINT `tb_comments_ibfk_2` FOREIGN KEY (`id_video`) REFERENCES `tb_videos` (`id_video`);
+  ADD CONSTRAINT `tb_comments_ibfk_1` FOREIGN KEY (`id_channel`) REFERENCES `tb_users` (`id_user`),
+  ADD CONSTRAINT `tb_comments_ibfk_2` FOREIGN KEY (`id_video`) REFERENCES `tb_videos` (`id_video`),
+  ADD CONSTRAINT `tb_comments_ibfk_3` FOREIGN KEY (`id_channel`) REFERENCES `tb_channels` (`id_channel`);
 
 --
 -- Filtros para la tabla `tb_followed`
 --
 ALTER TABLE `tb_followed`
   ADD CONSTRAINT `tb_followed_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `tb_users` (`id_user`),
-  ADD CONSTRAINT `tb_followed_ibfk_2` FOREIGN KEY (`id_channel`) REFERENCES `tb_channels` (`id_channel`);
+  ADD CONSTRAINT `tb_followed_ibfk_2` FOREIGN KEY (`id_channel`) REFERENCES `tb_channels` (`id_channel`),
+  ADD CONSTRAINT `tb_followed_ibfk_3` FOREIGN KEY (`id_user`) REFERENCES `tb_channels` (`id_channel`);
 
 --
 -- Filtros para la tabla `tb_users`
@@ -409,8 +411,9 @@ ALTER TABLE `tb_users`
 -- Filtros para la tabla `tb_videolike`
 --
 ALTER TABLE `tb_videolike`
-  ADD CONSTRAINT `tb_videolike_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `tb_users` (`id_user`),
-  ADD CONSTRAINT `tb_videolike_ibfk_2` FOREIGN KEY (`id_video`) REFERENCES `tb_videos` (`id_video`);
+  ADD CONSTRAINT `tb_videolike_ibfk_1` FOREIGN KEY (`id_channel`) REFERENCES `tb_users` (`id_user`),
+  ADD CONSTRAINT `tb_videolike_ibfk_2` FOREIGN KEY (`id_video`) REFERENCES `tb_videos` (`id_video`),
+  ADD CONSTRAINT `tb_videolike_ibfk_3` FOREIGN KEY (`id_channel`) REFERENCES `tb_channels` (`id_channel`);
 
 --
 -- Filtros para la tabla `tb_videos`
