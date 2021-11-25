@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 25-11-2021 a las 00:39:46
+-- Tiempo de generación: 25-11-2021 a las 07:06:35
 -- Versión del servidor: 10.4.21-MariaDB
 -- Versión de PHP: 8.0.12
 
@@ -90,6 +90,10 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_new_like` (`n_id_user` INT, `n_i
     VALUES (null, n_id_user, n_id_video);
 END$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_read_user` (IN `n_id_user` INT)  BEGIN
+	SELECT * FROM tb_users WHERE id_user = n_id_user;
+END$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_show_update_user` (IN `n_id_user` INT)  BEGIN
 	SELECT firstname_user, lastname_user, mail_user, pass_user, paypal_info, dateBirth, profileDesc 
     FROM tb_users 
@@ -110,11 +114,12 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_update_comment` (IN `n_id_user` 
     WHERE id_video=n_id_video AND id_user=n_id_user; 
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_update_user` (IN `n_id_user` INT, IN `n_firstname_user` VARCHAR(255), IN `n_lastname_user` VARCHAR(255), IN `n_mail_user` VARCHAR(255), IN `n_pass_user` VARCHAR(255), IN `n_paypal_info` VARCHAR(255), IN `n_dateBirth_user` DATE, IN `n_profileDesc` VARCHAR(255))  BEGIN
-	UPDATE `tb_user` SET `firstname_user`=n_firstname_user,`lastname_user`=n_lastname_user,`mail_user`=n_mail_user,
-    						`pass_user`=sha2(n_pass_user,256),`paypal_info`=n_paypal_info,`dateBirth_user`=n_dateBirth_user,
-                            `profileDesc`=n_profileDesc
-    WHERE id_user=n_id_user;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_update_user` (IN `n_id_user` INT, IN `n_firstname_user` VARCHAR(255), IN `n_lastname_user` VARCHAR(255), IN `n_mail_user` VARCHAR(255), IN `n_paypal_info` VARCHAR(255), IN `n_dateBirth_user` DATE, IN `n_profileDesc` VARCHAR(255))  BEGIN 
+    UPDATE tb_users SET firstname_user=n_firstname_user,
+                        lastname_user=n_lastname_user,mail_user=n_mail_user, 
+                        paypal_info=n_paypal_info,
+                        dateBirth_user=n_dateBirth_user,profileDesc=n_profileDesc 
+    WHERE id_user=n_id_user; 
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_update_video` (IN `n_id_video` INT, IN `n_title_video` VARCHAR(255), IN `n_description_video` VARCHAR(1000), IN `n_status_video` VARCHAR(255))  BEGIN 
@@ -145,7 +150,7 @@ CREATE TABLE `tb_channels` (
 --
 
 INSERT INTO `tb_channels` (`id_channel`, `name_channel`, `num_subs`, `num_videos`, `info_channel`) VALUES
-(1, 'Learn with Josh', 0, 0, NULL);
+(1, 'Learn with Josh', 0, 1, NULL);
 
 --
 -- Disparadores `tb_channels`
@@ -270,6 +275,13 @@ CREATE TABLE `tb_videos` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
+-- Volcado de datos para la tabla `tb_videos`
+--
+
+INSERT INTO `tb_videos` (`id_video`, `title_video`, `description_video`, `posted_at`, `status_video`, `views_video`, `id_owner`, `num_likes`, `url_video`, `miniature`, `filename`) VALUES
+(1, 'Prueba', 'Ayuda pofavo', '2021-11-24', 0, 0, 1, 0, '0', 'Captura de pantalla (26).png', 'Captura de pantalla (27).png');
+
+--
 -- Disparadores `tb_videos`
 --
 DELIMITER $$
@@ -367,7 +379,7 @@ ALTER TABLE `tb_videolike`
 -- AUTO_INCREMENT de la tabla `tb_videos`
 --
 ALTER TABLE `tb_videos`
-  MODIFY `id_video` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_video` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Restricciones para tablas volcadas
