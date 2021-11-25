@@ -1,3 +1,6 @@
+<?php  
+  require 'session.php';
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -51,7 +54,7 @@
                 echo '<b>Error uploading the files.</b>';
             }
             
-            $mysqli->insert($title, $desc, $stat, $owner=7, $miniature, $fileN);
+            $mysqli->insert($title, $desc, $stat, $idU, $miniature, $fileN);
         }
     ?>
 </body>

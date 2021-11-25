@@ -71,7 +71,7 @@
             $lName=$_POST['lName'];
             $uName=$_POST['uName'];
             $mail=$_POST['mail'];
-            $pass=$_POST['pass'];
+            $pass=password_hash($_POST['pass'], PASSWORD_BCRYPT);
             $paypal=$_POST['paypal'];
             $birthDt=$_POST['birthDt'];
             $desc=$_POST['desc'];

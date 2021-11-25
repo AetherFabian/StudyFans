@@ -2,19 +2,13 @@
     require('SQL/connect.php');
 
     class CRUDvideo{
-        function insert($title, $desc, $stat, $owner, $miniature, $fileN){                
+        function insert($title, $desc, $stat, $idU, $miniature, $fileN){                
             $mysqli = new conexion();
             $mysqli = $mysqli->conn();
-            //$mysqli -> begin_transaction(MYSQLI_TRANS_START_WITH_CONSISTENT_SNAPSHOT);
+            $mysqli -> begin_transaction(MYSQLI_TRANS_START_WITH_CONSISTENT_SNAPSHOT);
             
             $sql = "CALL SP_create_video('".$title."','".$desc."','".$stat."'
-                                    ,'".$owner."','".$miniature."','".$fileN."')";
-            /*if ($mysqli->query($sql)===TRUE){
-                echo ("<p>Lo lograste</p>");
-            } 
-            else{
-                echo("Falló el proceso".$mysqli->error);
-            }*/
+                                    ,'".$idU."','".$miniature."','".$fileN."')";
             $result = $mysqli->query($sql);
 
             if ($result==FALSE){

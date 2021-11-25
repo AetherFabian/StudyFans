@@ -1,30 +1,28 @@
-<?php
-
-  include('SQL/database.php');
+<?php  
   session_start();
 
-if (isset($_POST['login'])) {
-  $email = $_POST['mail_user'];
-  $pass = $_POST['password'];
+  if (isset($_SESSION['user_id'])) {
+    header('Location: /StudyFans');
+  }
 
-  
-    $records = $conn->prepare('SELECT id_user, mail_user, pass_user FROM tb_users WHERE mail_user = :email');
-    $records->bindParam('email', $email, PDO::PARAM_STR);
+  require 'SQL/database.php';
+  if (!empty($_POST['mail_user']) && !empty($_POST['pass'])) {
+    $sql='CALL `SP_login` ("'.$_POST['mail_user'].'")';
+    $records = $conn->prepare($sql);
     $records->execute();
-  
     $results = $records->fetch(PDO::FETCH_ASSOC);
 
-    if (!$results) {
-      echo "Tas bien puñetas";
+    $message = '';
+    $count=isset($results);
+
+    if ($count && password_verify($_POST['pass'], $results['pass_user'])) {
+      $_SESSION['user_id'] = $results['id_user'];
+      header("Location: /StudyFans");
     } else {
-      if (password_verify($pass, $result['pass_user'])) {
-         $_SESSION['user_id'] = $results['id_user'];
-          header("Location: /StudyFans");
-        } else {
-            echo '<p class="error">Username password combination is wrong!</p>';
-        }
+      $message = 'Lo siento, los datos no coinciden';
     }
-}
+    $idU = $_SESSION['user_id'];
+  }
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -42,7 +40,7 @@ if (isset($_POST['login'])) {
     <?php //require 'partials/header.php' ?>
 
     <?php if(!empty($message)): ?>
-    <p> <?= $message ?></p>
+        <p style=color:azure> <?= $message ?></p>
     <?php endif; ?>
     <form action="login.php" method="POST" class="formulario" >
         <h1>Login</h1>
@@ -55,7 +53,7 @@ if (isset($_POST['login'])) {
                 <i class="fas fa-key icon"></i>
                 <input type="password" name="pass" placeholder="Password">
             </div>
-            <input type="submit" value="Login" class="button">
+            <input type="submit" value="login" class="button">
             <p>¿You dont have an account? <a class="link" href="signup.php">Sign up </a></p>
         </div>
     </form>
