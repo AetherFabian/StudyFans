@@ -24,7 +24,8 @@
             </div>
         </div>
 
-     <form action="#" method="POST" enctype="multipart/form-data">
+     <form action="edit-profile-next.php" method="POST" enctype="multipart/form-data">
+        <input type="hidden" name="id" value = "<?php echo $id['id_user']; ?>">
         <div class="row profile-row">
             
              <div class="col-md-4 relative">
@@ -42,7 +43,7 @@
                 
                 <div class="row">
                     <div class="col-sm-12 col-md-6">
-                        <div class="form-group mb-3"><label class="form-label">Nombre(s)</label><input id="firstname" class="form-control" type="text" name="fname" value="<?php echo $id['firstname_user'];?>"></div>
+                        <div class="form-group mb-3"><label class="form-label">Nombre(s)</label><input id="firstname" class="form-control" type="text" name="fName" value="<?php echo $id['firstname_user'];?>"></div>
                     </div>
                     <div class="col-sm-12 col-md-6">
                         <div class="form-group mb-3"><label class="form-label">Apellidos</label><input id="lastname" class="form-control" type="text" name="lName" value="<?php echo $id['lastname_user']; ?>"></div>
@@ -51,7 +52,7 @@
                 
                 <div class="form-group mb-3"><label class="form-label">Email </label><input class="form-control" type="email" autocomplete="off" required="" name="mail" placeholder="" readonly value="<?php echo $id['mail_user']; ?>"> 
                     <div class="form-group mb-3"><label class="form-label">Paypal Email</label><input class="form-control" type="email" autocomplete="off" name="paypal" value="<?php echo $id['paypal_info']; ?>">
-                    <div class="form-group mb-3"><label class="form-label">Fecha de nacimiento</label><input class="form-control" id="date" type="date" name="dateBt" value="<?php echo $id['dateBirth_user']; ?>"></div></div>
+                    <div class="form-group mb-3"><label class="form-label">Fecha de nacimiento</label><input class="form-control" id="date" type="date" name="birthDt" value="<?php echo $id['dateBirth_user']; ?>"></div></div>
                 </div>
                 
                 </div>
@@ -64,25 +65,7 @@
             </div>
         </div>
         </form>
-        <?php 
-        include('SQL/userCRUD.php');
-        $mysqli = new CRUDuser();
         
-        if(isset($_POST['fName']) && isset($_POST['fName']) && isset($_POST['mail']) 
-            && isset($_POST['paypal']) && isset($_POST['birthDt']) && isset($_POST['desc'])
-            ){
-            $idU = $id['id_user'];
-            $fName=$_POST['fName'];
-            $lName=$_POST['lName'];
-            $mail=$_POST['mail'];
-            $paypal=$_POST['paypal'];
-            $birthDt=$_POST['birthDt'];
-            $desc=$_POST['desc'];
-            
-            $mysqli->update($idU, $fName, $lName, $mail, $paypal, $birthDt, $desc);
-        }
-    ?>
-    </div>
     <p>Aquí puedes decidir si quieres eliminar tu cuenta.&nbsp;<a href="delete-account.php">Eliminar cuenta</a></p>
     <?php else: ?>
       <h1>Por favor ingrese su cuenta o registrese </h1>
