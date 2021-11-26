@@ -14,7 +14,7 @@ html{
 body{
     margin: 0;
     font-family: 'Poppins';
-    padding-top: 10em;
+    /*padding-top: 10em;*/
     bottom: 0;
     left: 0;
     background: linear-gradient(50deg,rgb(226, 226, 226), #317FFF);
