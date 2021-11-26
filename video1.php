@@ -1,27 +1,21 @@
 <?php
     include_once('SQL/database.php');
-    
-    $query = 'CALL SP_update_user(:id, :fName, :lName, :mail, :paypal, :birthDt, :profileD)';
+    $query = "SELECT id_comment, (SELECT name_channel FROM tb_channels 
+                                    WHERE tb_channels.id_channel = tb_comments.id_channel),
+                     commented_at, content FROM tb_comments WHERE id_video = 2;" ;
     $statement = $conn->prepare($query);
- 
-    $id = $_POST['id'];
-    $fName=$_POST['fName'];
-    $lName=$_POST['lName'];
-    $mail=$_POST['mail'];
-    $paypal=$_POST['paypal'];
-    $birthDt=$_POST['birthDt'];
-    $desc=$_POST['desc'];
- 
-    $statement->bindValue(':id' , $id);
-    $statement->bindValue(':fName' , $fName);
-    $statement->bindValue(':lName' , $lName);
-    $statement->bindValue(':mail' , $mail);
-    $statement->bindValue(':paypal' , $paypal);
-    $statement->bindValue(':birthDt' , $birthDt);
-    $statement->bindValue(':profileD' , $desc);
- 
     $statement->execute();
+    $comment = $statement->fetchAll();
     $statement->closeCursor();
+
+    include_once('SQL/database.php');
+    $sql = "SELECT description_video FROM tb_videos WHERE id_video = 2;" ;
+    $statement = $conn->prepare($sql);
+    $statement->execute();
+    $video = $statement->fetchAll();
+    $statement->closeCursor();
+
+    $cont=1;
 
     require 'session.php';
 ?>
@@ -31,21 +25,44 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Bienvenido</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="CSS/index.css">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+    <title>Study Fans</title>
 </head>
 <body>
     <?php if(!empty($id)): ?>
-      <?php  include('partials/header.php') ?>
-      <section>
-        <article>
-            <form>
-              <?php header('Location: profile.php'); ?>
-            </form>
-        </article>
-      </section>
+      
+    <?php  include('partials/header.php') ?>
 
-      <?php else: ?>
+    <video width="620px" height="540px" controls>
+        <source src="files/videos/Process and Package Management on UNIX.Linux.mp4" type="video/mp4">
+    </video><br>
+    <?php foreach($video as $video): ?>
+        <p>Description:  <?php echo $video['description_video']; ?></p>
+    <?php endforeach; ?>
+    <table class="table table-striped">
+            <tr>
+                <td>Comentario</td>
+                <td>Por:</td>
+                <td>Fecha:</td><br>
+            </tr>
+            <?php foreach($comment as $comment): ?>
+            <tr>
+                <td>
+                    <?php echo $comment['content']; ?>
+                </td>
+                <td>
+                    <?php echo $comment['(SELECT name_channel FROM tb_channels 
+                                    WHERE tb_channels.id_channel = tb_comments.id_channel)']; ?>
+                </td>
+                <td>
+                    <?php echo $comment['commented_at']; ?>
+                </td>
+            </tr>
+            <?php endforeach; ?>
+        </table>
+
+    <?php else: ?>
       <div class="logo">
         <form>
           <h2>¿Who are we?</h2>

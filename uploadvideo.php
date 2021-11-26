@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="CSS/uploadvideo.css">
     <script src="https://kit.fontawesome.com/19fdbc0fa6.js" crossorigin="anonymous"></script>
-    <title>Subir Videos</title>
+    <title>Study Fans</title>
 </head>
 <body>
     <?php if(!empty($id)): ?>
@@ -60,10 +60,43 @@
         }
     ?>
     <?php else: ?>
-      <h1>Por favor ingrese su cuenta o registrese </h1>
-
-      <a href="login.php">Iniciar sesion</a> o
-      <a href="signup.php">Registro</a>
+        <div class="logo">
+        <form>
+          <h2>¿Who are we?</h2>
+          <?php  include('partials/whoarewe.php') ?>
+          
+          <a href="signup.php">
+            <button type="button" value="Registrate" class="logButton" >Registrate</button>
+          </a>
+          <a href="login.php">
+            <button type="button" value="Iniciar Sesion" class="logButton" >Login</button>
+          </a>
+        </form>
+    
+        <h3 class="logo">StudyFans</h3>
+      
+      </div>
+    
+      <form action="">
+        <div class="redes-sociales">
+          <h2>Our Social Networks </h2>
+          <a href="https://twitter.com/GustavoVallado4" class="boton-redes twitter fab fa-twitter" target="_blank"><i class="icon-twitter"></i></a>
+          <p class="red">@GustavoVallado4</p>
+        </div>
+        <div class="redes-sociales">
+          <a href="https://twitter.com/Aether_Fabian" class="boton-redes twitter fab fa-twitter" target="_blank"><i class="icon-twitter"></i></a>
+          <p class="red">@Aether_Fabian</p>
+        </div>
+        <div class="redes-sociales">
+          <a href="https://twitter.com/Vornic_" class="boton-redes twitter fab fa-twitter" target="_blank"><i class="icon-twitter"></i></a>
+          <p class="red">@Vornic_</p>
+        </div>
+        <div class="redes-sociales">
+          <a href="https://twitter.com/TurcoAv" class="boton-redes twitter fab fa-twitter" target="_blank"><i class="icon-twitter"></i></a>
+          <p class="red">@TurvoAv</p>
+        </div>
+      </form>
+    </form>
     <?php endif; ?>
 </body>
 </html>

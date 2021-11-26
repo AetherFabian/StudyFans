@@ -58,7 +58,9 @@
                      <div class="avatar-bg center"></div>
                  </div><label class="form-label"><h2><?= $id['name_user']; ?></h2></label>
                  
-                <div class="form-group mb-3"><label class="form-label">Descripción de perfil</label><input class="form-control" type="text" autocomplete="off" required="" name="desc" value="<?php echo $id['profileDesc']; ?>"></div>
+                <div class="form-group mb-3"><label class="form-label">Descripción de perfil</label><input class="form-control" type="text" autocomplete="off" required="" name="desc" value="<?php echo $id['profileDesc']; ?>">
+                    <a href="profile.php">Volver al perfil</a>
+                </div>
         </div>
         
             <div class="col-md-8">
@@ -82,7 +84,7 @@
                 </div>
                     
                 <div class="row">
-                    <div class="col-md-12 content-right"><a href="profile.php">Volver al perfil</a>
+                    <div class="col-md-12 content-right">
                         <input class="updateButton" value="Guardar Cambios" type="submit">
                     </div>
                 </div>
@@ -93,10 +95,7 @@
       <div class="logo">
         <form>
           <h2>¿Who are we?</h2>
-          <p class="red">Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-            Sed expedita quis enim reprehenderit maiores sunt delectus cumque, 
-            perspiciatis natus quo consectetur cupiditate! 
-            Voluptates ut sunt cum sit deserunt doloremque ad.</p>
+          <?php  include('partials/whoarewe.php') ?>
           
           <a href="signup.php">
             <button type="button" value="Registrate" class="logButton" >Registrate</button>

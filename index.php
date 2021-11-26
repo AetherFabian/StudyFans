@@ -35,10 +35,7 @@
       <div class="logo">
         <form>
           <h2>¿Who are we?</h2>
-          <p class="red">Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-            Sed expedita quis enim reprehenderit maiores sunt delectus cumque, 
-            perspiciatis natus quo consectetur cupiditate! 
-            Voluptates ut sunt cum sit deserunt doloremque ad.</p>
+          <?php  include('partials/whoarewe.php') ?>
           
           <a href="signup.php">
             <button type="button" value="Registrate" class="logButton" >Registrate</button>

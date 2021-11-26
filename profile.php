@@ -1,21 +1,8 @@
 <?php
     require 'session.php';
 ?>
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile</title>
-    <link rel="stylesheet" href="assets/css/profile.css">
-</head>
-
-<body>
-<?php if(!empty($id)): ?>
-    <?php  include('partials/header.php') ?>
-    <style>
-        .logButton{
+<style>
+.logButton{
     align-items: center;
     background-color: rgb(255, 66, 77);
     border-radius: 9999px;
@@ -61,13 +48,24 @@
     display: inline;
     right: 0;
 }
-    </style>
+</style>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <link rel="stylesheet" href="assets/css/profile.css">
+</head>
+
+<body>
+<?php if(!empty($id)): ?>
+    <?php  include('partials/header.php') ?>
+    
     <section class="seccion-perfil-usuario">
         <div class="perfil-usuario-header">
             <div class="perfil-usuario-portada">
-            <a href="logout.php">
-            <button type="button" value="logout" class="logOutButton">Log Out</button>
-            </a>
                 <div class="perfil-usuario-avatar">
                     <img src="https://logos-marcas.com/wp-content/uploads/2020/11/GitHub-Logo.png" alt="img-avatar">
                 </div>
@@ -86,17 +84,18 @@
             <a href="edit-profile.php">
             <button type="button" value="Edit-Profile" class="logButton">Edit Profile</button>
           </a>
+          
         </div>
+        <a href="logout.php">
+            <button type="button" value="logout" class="logOutButton">Log Out</button>
+            </a>
 
         </section>
         <?php else: ?>
       <div class="logo">
         <form>
           <h2>¿Who are we?</h2>
-          <p class="red">Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-            Sed expedita quis enim reprehenderit maiores sunt delectus cumque, 
-            perspiciatis natus quo consectetur cupiditate! 
-            Voluptates ut sunt cum sit deserunt doloremque ad.</p>
+          <?php  include('partials/whoarewe.php') ?>
           
           <a href="signup.php">
             <button type="button" value="Registrate" class="logButton" >Registrate</button>
