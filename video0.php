@@ -1,10 +1,31 @@
+<?php
+    include_once('SQL/database.php');
+    $query = "SELECT id_comment, id_channel, (SELECT name_channel FROM tb_channels 
+                                    WHERE tb_channels.id_channel = tb_comments.id_channel),
+                    commented_at, content FROM tb_comments WHERE id_video = 2;";
+    $statement = $conn->prepare($query);
+    $statement->execute();
+    $comment = $statement->fetchAll();
+    $statement->closeCursor();
+
+    include_once('SQL/database.php');
+    $sql = "SELECT title_video, description_video FROM tb_videos WHERE id_video = 2;";
+    $statement = $conn->prepare($sql);
+    $statement->execute();
+    $video = $statement->fetchAll();
+    $statement->closeCursor();
+
+    $cont = 1;
+
+    require 'session.php';
+?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>2</title>
+    <title>Study Fans</title>
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/html5-video.css">
     <link rel="stylesheet" href="assets/css/Like-Button-for-PanelBear-Analytics.css">
@@ -12,61 +33,97 @@
 </head>
 
 <body>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-8">
-                <h1>VIDEO TITLE</h1><video controls>
-  <source src="assets/videos/fileName.mp4" type="video/mp4">
-  Your browser does not support HTML5 video.
-</video><dl class="row">
-  <dt class="col-sm-3">Description lists</dt>
-  <dd class="col-sm-9">A description list is perfect for defining terms.</dd>
-</dl>
+    <?php if (!empty($id)) : ?>
+
+        <?php include('partials/header.php') ?>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    <?php foreach ($video as $video) : ?>
+                        <h1><?php echo $video['title_video']; ?></h1>
+                    <?php endforeach; ?>
+
+                    <video controls>
+                        <source src="files/videos/User Managing (Ubuntu).mp4" type="video/mp4">
+                    </video>
+
+                    <dl class="row">
+                        <dt class="col-sm-3">Description:</dt>
+                        <dd class="col-sm-9">
+                            <p><?php echo $video['description_video']; ?></p>
+                        </dd>
+                    </dl>
+                </div>
+                <div id="comments" class="comments-area">
+                    <h2 class="comments-title">Comments</h2>
+
+                    <table class="table table-striped">
+                        <tr>
+                            <td>Comentario</td>
+                            <td>Por:</td>
+                            <td>Fecha:</td><br>
+                        </tr>
+                        <?php foreach($comment as $comment): ?>
+                        <tr>
+                            <td>
+                                <?php echo $comment['content']; ?>
+                            </td>
+                            <td>
+                                <?php echo $comment['(SELECT name_channel FROM tb_channels 
+                                    WHERE tb_channels.id_channel = tb_comments.id_channel)']; ?>
+                            </td>
+                            <td>
+                                <?php echo $comment['commented_at']; ?>
+                            </td>
+                        </tr>
+                        <?php endforeach; ?>
+                    </table>
+                </div>
             </div>
-            <div class="col-md-4"><div class="container">
-    <div class="row">
-        <div class="col-md-12">
-
-<div id="comments" class="comments-area">
-
-			<h2 class="comments-title">Comments</h2>
-
-		
-		<ol class="comment-list">
-					<li id="comment-1" class="comment even thread-even depth-1">
-			<article id="div-comment-1" class="comment-body">
-				<footer class="comment-meta">
-					<div class="comment-author vcard">						
-                        <b class="fn"> Sr. WordPress</b> <span class="says">Says:</span>					</div><!-- .comment-author -->
-
-					<div class="comment-metadata">
-						<a href="http://localhost/wordpress/2016/10/05/ola-mundo/#comment-1">
-							
-						</a>
-											</div><!-- .comment-metadata -->
-
-									</footer><!-- .comment-meta -->
-
-				<div class="comment-content">
-					<p>Olá, Isto é um comentário.<br>
-Para excluir um comentário, faça o login e veja os comentários de posts. Lá você terá a opção de editá-los ou excluí-los.</p>
-				</div><!-- .comment-content -->
-
-		</article><!-- .comment-body -->
-</li><!-- #comment-## -->
-		</ol><!-- .comment-list -->
-
-		
-					
-					</div><!-- #respond -->
-		
-            
-        </div>  
         </div>
-    </div>
-</div>
+    <?php else : ?>
+        <div class="logo">
+            <form>
+                <h2>¿Who are we?</h2>
+                <p class="red">Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Sed expedita quis enim reprehenderit maiores sunt delectus cumque,
+                    perspiciatis natus quo consectetur cupiditate!
+                    Voluptates ut sunt cum sit deserunt doloremque ad.</p>
+
+                <a href="signup.php">
+                    <button type="button" value="Registrate" class="logButton">Registrate</button>
+                </a>
+                <a href="login.php">
+                    <button type="button" value="Iniciar Sesion" class="logButton">Login</button>
+                </a>
+            </form>
+
+            <h3 class="logo">StudyFans</h3>
+
         </div>
-    </div>
+
+        <form action="">
+            <div class="redes-sociales">
+                <h2>Our Social Networks </h2>
+                <a href="https://twitter.com/GustavoVallado4" class="boton-redes twitter fab fa-twitter" target="_blank"><i class="icon-twitter"></i></a>
+                <p class="red">@GustavoVallado4</p>
+            </div>
+            <div class="redes-sociales">
+                <a href="https://twitter.com/Aether_Fabian" class="boton-redes twitter fab fa-twitter" target="_blank"><i class="icon-twitter"></i></a>
+                <p class="red">@Aether_Fabian</p>
+            </div>
+            <div class="redes-sociales">
+                <a href="https://twitter.com/Vornic_" class="boton-redes twitter fab fa-twitter" target="_blank"><i class="icon-twitter"></i></a>
+                <p class="red">@Vornic_</p>
+            </div>
+            <div class="redes-sociales">
+                <a href="https://twitter.com/TurcoAv" class="boton-redes twitter fab fa-twitter" target="_blank"><i class="icon-twitter"></i></a>
+                <p class="red">@TurvoAv</p>
+            </div>
+        </form>
+        </form>
+    <?php endif; ?>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
 </body>
 
