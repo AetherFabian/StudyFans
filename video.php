@@ -7,7 +7,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>2</title>
+    <title>video</title>
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/html5-video.css">
     <link rel="stylesheet" href="assets/css/Like-Button-for-PanelBear-Analytics.css">
@@ -21,6 +21,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-8"><video controls>
+            <h1>VIDEO TITLE</h1><video controls>
   <source src="assets/videos/fileName.mp4" type="video/mp4">
   Your browser does not support HTML5 video.
 </video><button class="btn btn-primary" type="button">SUSCRIBE</button><!--Requires PanelBear analytics account and header script-->
