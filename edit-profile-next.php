@@ -24,6 +24,7 @@
     $statement->closeCursor();
 
     require 'session.php';
+
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -36,23 +37,56 @@
 </head>
 <body>
     <?php if(!empty($id)): ?>
-
       <?php  include('partials/header.php') ?>
-      
       <section>
         <article>
-            <p>Usuario actualizado </p>
-            <form action="index.php" method="POST">
-                <input type="submit" value="Volver">
+            <form>
+              <?php header('Location: profile.php'); ?>
             </form>
         </article>
       </section>
 
-    <?php else: ?>
-      <h1>Por favor ingrese su cuenta o registrese </h1>
-
-      <a href="login.php">Iniciar sesion</a> o
-      <a href="signup.php">Registro</a>
+      <?php else: ?>
+      <div class="logo">
+        <form>
+          <h2>¿Who are we?</h2>
+          <p class="red">Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+            Sed expedita quis enim reprehenderit maiores sunt delectus cumque, 
+            perspiciatis natus quo consectetur cupiditate! 
+            Voluptates ut sunt cum sit deserunt doloremque ad.</p>
+          
+          <a href="signup.php">
+            <button type="button" value="Registrate" class="logButton" >Registrate</button>
+          </a>
+          <a href="login.php">
+            <button type="button" value="Iniciar Sesion" class="logButton" >Login</button>
+          </a>
+        </form>
+    
+        <h3 class="logo">StudyFans</h3>
+      
+      </div>
+    
+      <form action="">
+        <div class="redes-sociales">
+          <h2>Our Social Networks </h2>
+          <a href="https://twitter.com/GustavoVallado4" class="boton-redes twitter fab fa-twitter" target="_blank"><i class="icon-twitter"></i></a>
+          <p class="red">@GustavoVallado4</p>
+        </div>
+        <div class="redes-sociales">
+          <a href="https://twitter.com/Aether_Fabian" class="boton-redes twitter fab fa-twitter" target="_blank"><i class="icon-twitter"></i></a>
+          <p class="red">@Aether_Fabian</p>
+        </div>
+        <div class="redes-sociales">
+          <a href="https://twitter.com/Vornic_" class="boton-redes twitter fab fa-twitter" target="_blank"><i class="icon-twitter"></i></a>
+          <p class="red">@Vornic_</p>
+        </div>
+        <div class="redes-sociales">
+          <a href="https://twitter.com/TurcoAv" class="boton-redes twitter fab fa-twitter" target="_blank"><i class="icon-twitter"></i></a>
+          <p class="red">@TurvoAv</p>
+        </div>
+      </form>
+    </form>
     <?php endif; ?>
 </body>
 </html>

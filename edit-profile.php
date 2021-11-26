@@ -2,7 +2,7 @@
     require 'session.php';
 ?>
 <!DOCTYPE html>
-<html class="text-center" lang="es">
+<html class="text-center" lang="en">
 
 <head>
     <meta charset="utf-8">
@@ -15,9 +15,31 @@
 
 <body>
     <?php if(!empty($id)): ?>
-    
-    <?php  include('partials/header.php') ?>
-
+        <?php  include('partials/header.php') ?>
+        <style>
+        .updateButton{
+    align-items: center;
+    background-color: rgb(255, 66, 77);
+    border-radius: 9999px;
+    border: 1px solid rgb(255, 66, 77);
+    align-items: center;
+    background-color: rgb(255, 66, 77);
+    border-radius: 99px;
+    border: 1px solid rgb(255, 66, 77);
+    box-sizing: border-box;
+    cursor: pointer;
+    display: inline-flex;
+    font-weight: 500;
+    height: unset;
+    justify-content: center;
+    padding: 0.78125rem 5.3rem;
+    position: relative;
+    pointer-events: unset;
+    text-align: center;
+    color: rgb(255, 255, 255) !important;
+    font-size: 1rem !important;
+}
+      </style>
     <div class="container profile profile-view" id="profile">
         
         <div class="row">
@@ -61,22 +83,53 @@
                     
                 <div class="row">
                     <div class="col-md-12 content-right"><a href="profile.php">Volver al perfil</a>
-                        <input class="btn btn-primary text-end" value="Guardar Cambios" type="submit">
+                        <input class="updateButton" value="Guardar Cambios" type="submit">
                     </div>
                 </div>
             </div>
         </div>
         </form>
-        
-    <p>Aquí puedes decidir si quieres eliminar tu cuenta.&nbsp;<a href="delete-account.php">Eliminar cuenta</a></p>
-    <?php else: ?>
-      <h1>Por favor ingrese su cuenta o registrese </h1>
-
-      <a href="login.php">Iniciar sesion</a> o
-      <a href="signup.php">Registro</a>
+        <?php else: ?>
+      <div class="logo">
+        <form>
+          <h2>¿Who are we?</h2>
+          <p class="red">Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+            Sed expedita quis enim reprehenderit maiores sunt delectus cumque, 
+            perspiciatis natus quo consectetur cupiditate! 
+            Voluptates ut sunt cum sit deserunt doloremque ad.</p>
+          
+          <a href="signup.php">
+            <button type="button" value="Registrate" class="logButton" >Registrate</button>
+          </a>
+          <a href="login.php">
+            <button type="button" value="Iniciar Sesion" class="logButton" >Login</button>
+          </a>
+        </form>
+    
+        <h3 class="logo">StudyFans</h3>
+      
+      </div>
+    
+      <form action="">
+        <div class="redes-sociales">
+          <h2>Our Social Networks </h2>
+          <a href="https://twitter.com/GustavoVallado4" class="boton-redes twitter fab fa-twitter" target="_blank"><i class="icon-twitter"></i></a>
+          <p class="red">@GustavoVallado4</p>
+        </div>
+        <div class="redes-sociales">
+          <a href="https://twitter.com/Aether_Fabian" class="boton-redes twitter fab fa-twitter" target="_blank"><i class="icon-twitter"></i></a>
+          <p class="red">@Aether_Fabian</p>
+        </div>
+        <div class="redes-sociales">
+          <a href="https://twitter.com/Vornic_" class="boton-redes twitter fab fa-twitter" target="_blank"><i class="icon-twitter"></i></a>
+          <p class="red">@Vornic_</p>
+        </div>
+        <div class="redes-sociales">
+          <a href="https://twitter.com/TurcoAv" class="boton-redes twitter fab fa-twitter" target="_blank"><i class="icon-twitter"></i></a>
+          <p class="red">@TurvoAv</p>
+        </div>
+      </form>
+    </form>
     <?php endif; ?>
-    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-    <script src="assets/js/Profile-Edit-Form.js"></script>
 </body>
-
 </html>
