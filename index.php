@@ -14,22 +14,9 @@
 <body>
     <?php if(!empty($id)): ?>
       
-    <?php  include('partials/header.php') ?>
+    <?php include('partials/header.php') ?>
 
-      <section>
-        <article>
-          <h1>Bienvenido <?= $id['firstname_user']; ?>!</h1><br>
-          <p> Nombre: <?= $id['firstname_user']; ?></p><br>
-          <p> Apellido: <?= $id['lastname_user']; ?></p><br>
-          <p> Mail: <?= $id['mail_user']; ?></p><br>
-          <p> Paypal: <?= $id['paypal_info']; ?></p><br>
-          <p> Cumpleaños: <?= $id['dateBirth_user']; ?></p><br>
-          <p> Descripción: <?= $id['profileDesc']; ?></p><br>
-          <p> <a class="link" href="edit-profile.php">Editar Perfil</a></p><br>
-          <p> <a class="link" href="video0.php">Video0</a></p><br>
-          <p> <a class="link" href="logout.php">Logout</a></p><br>
-        </article>
-      </section>
+    <?php //include('mainpage.php') ?>
 
     <?php else: ?>
       <div class="logo">
