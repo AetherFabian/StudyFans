@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 25-11-2021 a las 23:39:11
+-- Tiempo de generación: 26-11-2021 a las 03:16:05
 -- Versión del servidor: 10.4.21-MariaDB
 -- Versión de PHP: 8.0.12
 
@@ -309,7 +309,7 @@ ALTER TABLE `tb_channels`
 ALTER TABLE `tb_comments`
   ADD PRIMARY KEY (`id_comment`),
   ADD KEY `id_video` (`id_video`),
-  ADD KEY `id_channel` (`id_channel`);
+  ADD KEY `tb_comments_ibfk_3` (`id_channel`);
 
 --
 -- Indices de la tabla `tb_followed`
@@ -317,7 +317,7 @@ ALTER TABLE `tb_comments`
 ALTER TABLE `tb_followed`
   ADD PRIMARY KEY (`id_follow`),
   ADD KEY `id_channel` (`id_channel`),
-  ADD KEY `id_user` (`id_user`);
+  ADD KEY `tb_followed_ibfk_3` (`id_user`);
 
 --
 -- Indices de la tabla `tb_users`
@@ -332,7 +332,7 @@ ALTER TABLE `tb_users`
 ALTER TABLE `tb_videolike`
   ADD PRIMARY KEY (`id_like`),
   ADD KEY `id_video` (`id_video`),
-  ADD KEY `id_channel` (`id_channel`);
+  ADD KEY `tb_videolike_ibfk_3` (`id_channel`);
 
 --
 -- Indices de la tabla `tb_videos`
@@ -389,37 +389,34 @@ ALTER TABLE `tb_videos`
 -- Filtros para la tabla `tb_comments`
 --
 ALTER TABLE `tb_comments`
-  ADD CONSTRAINT `tb_comments_ibfk_1` FOREIGN KEY (`id_channel`) REFERENCES `tb_users` (`id_user`),
-  ADD CONSTRAINT `tb_comments_ibfk_2` FOREIGN KEY (`id_video`) REFERENCES `tb_videos` (`id_video`),
-  ADD CONSTRAINT `tb_comments_ibfk_3` FOREIGN KEY (`id_channel`) REFERENCES `tb_channels` (`id_channel`);
+  ADD CONSTRAINT `tb_comments_ibfk_2` FOREIGN KEY (`id_video`) REFERENCES `tb_videos` (`id_video`) ON DELETE CASCADE,
+  ADD CONSTRAINT `tb_comments_ibfk_3` FOREIGN KEY (`id_channel`) REFERENCES `tb_channels` (`id_channel`) ON DELETE CASCADE;
 
 --
 -- Filtros para la tabla `tb_followed`
 --
 ALTER TABLE `tb_followed`
-  ADD CONSTRAINT `tb_followed_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `tb_users` (`id_user`),
-  ADD CONSTRAINT `tb_followed_ibfk_2` FOREIGN KEY (`id_channel`) REFERENCES `tb_channels` (`id_channel`),
-  ADD CONSTRAINT `tb_followed_ibfk_3` FOREIGN KEY (`id_user`) REFERENCES `tb_channels` (`id_channel`);
+  ADD CONSTRAINT `tb_followed_ibfk_2` FOREIGN KEY (`id_channel`) REFERENCES `tb_channels` (`id_channel`) ON DELETE CASCADE,
+  ADD CONSTRAINT `tb_followed_ibfk_3` FOREIGN KEY (`id_user`) REFERENCES `tb_channels` (`id_channel`) ON DELETE CASCADE;
 
 --
 -- Filtros para la tabla `tb_users`
 --
 ALTER TABLE `tb_users`
-  ADD CONSTRAINT `tb_users_ibfk_1` FOREIGN KEY (`id_channel`) REFERENCES `tb_channels` (`id_channel`);
+  ADD CONSTRAINT `tb_users_ibfk_1` FOREIGN KEY (`id_channel`) REFERENCES `tb_channels` (`id_channel`) ON DELETE CASCADE;
 
 --
 -- Filtros para la tabla `tb_videolike`
 --
 ALTER TABLE `tb_videolike`
-  ADD CONSTRAINT `tb_videolike_ibfk_1` FOREIGN KEY (`id_channel`) REFERENCES `tb_users` (`id_user`),
-  ADD CONSTRAINT `tb_videolike_ibfk_2` FOREIGN KEY (`id_video`) REFERENCES `tb_videos` (`id_video`),
-  ADD CONSTRAINT `tb_videolike_ibfk_3` FOREIGN KEY (`id_channel`) REFERENCES `tb_channels` (`id_channel`);
+  ADD CONSTRAINT `tb_videolike_ibfk_2` FOREIGN KEY (`id_video`) REFERENCES `tb_videos` (`id_video`) ON DELETE CASCADE,
+  ADD CONSTRAINT `tb_videolike_ibfk_3` FOREIGN KEY (`id_channel`) REFERENCES `tb_channels` (`id_channel`) ON DELETE CASCADE;
 
 --
 -- Filtros para la tabla `tb_videos`
 --
 ALTER TABLE `tb_videos`
-  ADD CONSTRAINT `tb_videos_ibfk_1` FOREIGN KEY (`id_owner`) REFERENCES `tb_channels` (`id_channel`);
+  ADD CONSTRAINT `tb_videos_ibfk_1` FOREIGN KEY (`id_owner`) REFERENCES `tb_channels` (`id_channel`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
