@@ -37,6 +37,8 @@
 <body>
     <?php if(!empty($id)): ?>
 
+      <?php  include('partials/header.php') ?>
+      
       <section>
         <article>
             <p>Usuario actualizado </p>

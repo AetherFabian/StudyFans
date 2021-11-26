@@ -10,9 +10,11 @@
     <link rel="stylesheet" href="CSS/index.css">
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
     <title>StudyFans</title>
-  </head>
+</head>
 <body>
     <?php if(!empty($id)): ?>
+      
+    <?php  include('partials/header.php') ?>
 
       <section>
         <article>
@@ -23,7 +25,6 @@
           <p> Paypal: <?= $id['paypal_info']; ?></p><br>
           <p> Cumpleaños: <?= $id['dateBirth_user']; ?></p><br>
           <p> Descripción: <?= $id['profileDesc']; ?></p><br>
-          <p> <a class="link" href="uploadvideo.php">Subir Video</a></p><br>
           <p> <a class="link" href="edit-profile.php">Editar Perfil</a></p><br>
           <p> <a class="link" href="logout.php">Logout</a></p><br>
         </article>
@@ -33,7 +34,7 @@
       <div class="logo">
         <form>
           <h2>¿Who are we?</h2>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+          <p class="red">Lorem ipsum dolor sit amet consectetur adipisicing elit. 
             Sed expedita quis enim reprehenderit maiores sunt delectus cumque, 
             perspiciatis natus quo consectetur cupiditate! 
             Voluptates ut sunt cum sit deserunt doloremque ad.</p>

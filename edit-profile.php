@@ -2,7 +2,7 @@
     require 'session.php';
 ?>
 <!DOCTYPE html>
-<html class="text-center" lang="en">
+<html class="text-center" lang="es">
 
 <head>
     <meta charset="utf-8">
@@ -15,6 +15,8 @@
 
 <body>
     <?php if(!empty($id)): ?>
+    
+    <?php  include('partials/header.php') ?>
 
     <div class="container profile profile-view" id="profile">
         

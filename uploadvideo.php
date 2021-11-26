@@ -14,7 +14,7 @@
 <body>
     <?php if(!empty($id)): ?>
         
-    <?php  //include('partials/header.php') ?>
+    <?php  include('partials/header.php') ?>
 
     <form action="#" method="POST" enctype="multipart/form-data">
         <h2>Informacion del video</h2>
