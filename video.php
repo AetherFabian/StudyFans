@@ -8,10 +8,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>2</title>
-    <link rel="stylesheet" href="CSS/bootstrap.min.css">
-    <link rel="stylesheet" href="CSS/html5-video.css">
-    <link rel="stylesheet" href="CSS/Like-Button-for-PanelBear-Analytics.css">
-    <link rel="stylesheet" href="CSS/styles.css">
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/html5-video.css">
+    <link rel="stylesheet" href="assets/css/Like-Button-for-PanelBear-Analytics.css">
+    <link rel="stylesheet" href="assets/css/styles.css">
 </head>
 
 <body>
