@@ -53,11 +53,11 @@
                 <i class="fas fa-key icon"></i>
                 <input type="password" name="pass" placeholder="Password">
             </div>
-            <input type="submit" value="login" class="button">
-            <p>¿You dont have an account? <a class="link" href="signup.php">Sign up </a></p>
+            <input type="submit" value="Login" class="button">
+            <p>Don't you have an account? <a class="link" href="signup.php">Sign up </a></p>
+            <p><a class="link" href="index.php">Volver </a></p>
         </div>
     </form>
-    <p> <a class="link" href="logout.php">Logout</a></p>
 </body>
 
 </html>

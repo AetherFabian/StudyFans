@@ -57,8 +57,9 @@
                 <input type="password" name="pass" placeholder="Password">
             </div>
 
-            <input type="submit" value="Sign up" class="button">
-            <p>¿Do you already have an account? <a class="link" href="login.php">Login</a></p>
+            <input type="submit" value="Sign Up" class="button">
+            <p>Do you already have an account? <a class="link" href="login.php">Login</a></p>
+            <p><a class="link" href="index.php">Volver </a></p>
         </div>
     </form>
     <?php 
