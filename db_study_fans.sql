@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 26-11-2021 a las 03:16:05
+-- Tiempo de generación: 26-11-2021 a las 07:30:50
 -- Versión del servidor: 10.4.21-MariaDB
 -- Versión de PHP: 8.0.12
 
@@ -150,7 +150,10 @@ CREATE TABLE `tb_channels` (
 --
 
 INSERT INTO `tb_channels` (`id_channel`, `name_channel`, `num_subs`, `num_videos`, `info_channel`) VALUES
-(1, 'Learn with Josh', 0, 1, NULL);
+(1, 'Learn with Josh', 0, 1, NULL),
+(2, 'GusValla', 0, 0, NULL),
+(3, 'Faps13', 0, 0, NULL),
+(4, 'CarSalazar', 0, 0, NULL);
 
 --
 -- Disparadores `tb_channels`
@@ -175,6 +178,14 @@ CREATE TABLE `tb_comments` (
   `commented_at` date NOT NULL,
   `content` varchar(500) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `tb_comments`
+--
+
+INSERT INTO `tb_comments` (`id_comment`, `id_channel`, `id_video`, `commented_at`, `content`) VALUES
+(5, 1, 2, '2021-11-25', 'Gracias por la ayuda!'),
+(7, 3, 2, '2021-11-25', 'Muy buen video, puedes hacerlo pero con distribución Fedora?');
 
 -- --------------------------------------------------------
 
@@ -227,7 +238,10 @@ CREATE TABLE `tb_users` (
 --
 
 INSERT INTO `tb_users` (`id_user`, `firstname_user`, `lastname_user`, `name_user`, `mail_user`, `pass_user`, `paypal_info`, `created_at`, `dateBirth_user`, `profileDesc`, `id_channel`, `contentCreator`) VALUES
-(1, 'Joshua Alexis', 'Aviles', 'Learn with Josh', 'a6520150001@utch.edu.mx', '$2y$10$zq5Oz4vEPZqYZrOSgPuztOqCQoUsjtBtuyTKxNM.o0r8y7b8oqVfu', '', '2021-11-24', '2001-02-07', 'TID31BISM', 1, 0);
+(1, 'Joshua Alexis', 'Aviles', 'Learn with Josh', 'a6520150001@utch.edu.mx', '$2y$10$zq5Oz4vEPZqYZrOSgPuztOqCQoUsjtBtuyTKxNM.o0r8y7b8oqVfu', '', '2021-11-24', '2001-02-07', 'TID31BISM', 1, 0),
+(2, 'Gustavo', 'Valladolid', 'GusValla', 'a6520150033@utch.edu.mx', '$2y$10$R3K8SFMZDKHPjfTfn9n4/OApLEtMKKSruo8fpf76BezWPnVFLzxrS', 'churrosaurio17@gmail.com', '2021-11-25', '2002-08-17', 'UTCH BIS Student', 2, 0),
+(3, 'Fabian', 'Escobar', 'Faps13', 'a6520150036@utch.edu.mx', '$2y$10$rqYU0EtEFpn2GnszQ7QGG.yej4XA8y0yZXu3mZLchE1fhlaEF.OWq', '', '2021-11-25', '2002-05-13', 'Software Developer JR', 3, 0),
+(4, 'Carlos', 'Salazar', 'CarSalazar', 'a6520150015@utch.edu.mx', '$2y$10$1hZ0nnfj/BqwypU8l6mNNeKgVFTei.DGqBIsmlTEKGZtkwFxJ4ZJu', 'carlossaulsalazarcruz@gmail.com', '2021-11-25', '2001-08-10', 'Software Developer JR', 4, 0);
 
 -- --------------------------------------------------------
 
@@ -279,7 +293,7 @@ CREATE TABLE `tb_videos` (
 --
 
 INSERT INTO `tb_videos` (`id_video`, `title_video`, `description_video`, `posted_at`, `status_video`, `views_video`, `id_owner`, `num_likes`, `url_video`, `miniature`, `filename`) VALUES
-(1, 'Prueba', 'Ayuda pofavo', '2021-11-24', 0, 0, 1, 0, '0', 'Captura de pantalla (26).png', 'Captura de pantalla (27).png');
+(2, 'User managment Ubuntu', 'Manejar usuarios en distribución linux Ubuntu', '2021-11-25', 0, 0, 1, 0, '0', 'Captura de pantalla (15).png', 'User management Ubuntu.mp4');
 
 --
 -- Disparadores `tb_videos`
@@ -349,13 +363,13 @@ ALTER TABLE `tb_videos`
 -- AUTO_INCREMENT de la tabla `tb_channels`
 --
 ALTER TABLE `tb_channels`
-  MODIFY `id_channel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_channel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `tb_comments`
 --
 ALTER TABLE `tb_comments`
-  MODIFY `id_comment` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_comment` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `tb_followed`
@@ -367,7 +381,7 @@ ALTER TABLE `tb_followed`
 -- AUTO_INCREMENT de la tabla `tb_users`
 --
 ALTER TABLE `tb_users`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `tb_videolike`
@@ -379,7 +393,7 @@ ALTER TABLE `tb_videolike`
 -- AUTO_INCREMENT de la tabla `tb_videos`
 --
 ALTER TABLE `tb_videos`
-  MODIFY `id_video` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_video` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Restricciones para tablas volcadas
