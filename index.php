@@ -9,7 +9,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="CSS/index.css">
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
-    <title>StudyFans</title>
+    <title>Study Fans</title>
 </head>
 <body>
     <?php if(!empty($id)): ?>
@@ -26,6 +26,7 @@
           <p> Cumpleaños: <?= $id['dateBirth_user']; ?></p><br>
           <p> Descripción: <?= $id['profileDesc']; ?></p><br>
           <p> <a class="link" href="edit-profile.php">Editar Perfil</a></p><br>
+          <p> <a class="link" href="video0.php">Video0</a></p><br>
           <p> <a class="link" href="logout.php">Logout</a></p><br>
         </article>
       </section>
