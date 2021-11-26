@@ -1,0 +1,94 @@
+
+body {
+ font-family: 'Poppins',Georgia, 'Times New Roman', Times, serif;
+ color: #333;
+ line-height: 1.3em;
+ margin: 0;
+}
+p {
+ margin-bottom: 1.3em;
+}
+h1 {
+    font-size: 2rem;
+    line-height: 1.3em;
+}
+ .container{
+  width: 85%;
+  max-width: 900px;
+  margin: 0 auto;
+  }
+.header{
+      background: #333;
+      display: flex;
+      color: white;
+      padding: 1rem 0;
+      position: fixed;
+      left: 0;
+      top: 0;
+      right: 0;
+  }
+ .header a{
+      color: white;
+      text-decoration: none;
+  }
+ 
+  .navigation ul{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+   }
+   .navigation ul li {
+    display: inline-block;
+  }
+   .navigation ul li a {
+    display: block;
+    padding: 0.5rem 1rem;
+    transition: all 0.4s linear;
+    border-radius: 5px;
+  }
+  .logo-nav-container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+  .navigation ul li a:hover {
+    background: #4a4a4a; 
+}
+  
+  .search-bar {
+    display: flex;
+    flex-grow: 1;
+    margin: 0 2rem 0 4rem;
+  }
+  .search-input {
+    width: 100% ;
+    font-size: inherit ;
+    padding: .4em ;
+    border: 1px solid #777 ; 
+    border-top-right-radius: 0 ;
+    border-bottom-right-radius: 0 ;
+  }
+  .search-btn {
+    display: flex;
+    align-items: center;
+    padding: 0 1.25rem;
+    border: 1px solid #777;
+    background-color: #F8F8F8;
+    border-left: none;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    cursor: pointer;
+  }
+  .logo{
+    letter-spacing: 15px;
+    font-size: 1.3em;
+}
+  .main{
+    padding-top: 8rem;
+}
+  .footer {
+      background:#f2f2f2;
+      padding: 4rem 0;
+      text-align: center;
+      margin-top: 6rem;
+  }
