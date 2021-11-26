@@ -1,3 +1,11 @@
+html{
+  background: linear-gradient(#fdfdfd, transparent)
+}
+body{
+  margin: 0;
+  background-size: 100vw 100vh;
+  background: linear-gradient(#317FFF, transparent);
+}
 div.avatar > img {
   border-radius: 50%;
 }
