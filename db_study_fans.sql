@@ -2,10 +2,10 @@
 -- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1
--- Tiempo de generación: 26-11-2021 a las 07:30:50
--- Versión del servidor: 10.4.21-MariaDB
--- Versión de PHP: 8.0.12
+-- Host: 127.0.0.1
+-- Generation Time: Nov 27, 2021 at 02:59 AM
+-- Server version: 10.4.21-MariaDB
+-- PHP Version: 8.0.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,12 +18,12 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `db_study_fans`
+-- Database: `db_study_fans`
 --
 
 DELIMITER $$
 --
--- Procedimientos
+-- Procedures
 --
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_create_comment` (IN `n_id_channel` INT, IN `n_id_video` INT, IN `n_content` VARCHAR(500))  BEGIN
 		INSERT INTO tb_comments (id_comment,id_channel,id_video,commented_at,content)
@@ -134,7 +134,7 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `tb_channels`
+-- Table structure for table `tb_channels`
 --
 
 CREATE TABLE `tb_channels` (
@@ -146,17 +146,16 @@ CREATE TABLE `tb_channels` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Volcado de datos para la tabla `tb_channels`
+-- Dumping data for table `tb_channels`
 --
 
 INSERT INTO `tb_channels` (`id_channel`, `name_channel`, `num_subs`, `num_videos`, `info_channel`) VALUES
-(1, 'Learn with Josh', 0, 1, NULL),
+(1, 'Learn with Josh', 0, 5, NULL),
 (2, 'GusValla', 0, 0, NULL),
-(3, 'Faps13', 0, 0, NULL),
-(4, 'CarSalazar', 0, 0, NULL);
+(3, 'Faps13', 0, 0, NULL);
 
 --
--- Disparadores `tb_channels`
+-- Triggers `tb_channels`
 --
 DELIMITER $$
 CREATE TRIGGER `channel_link` AFTER INSERT ON `tb_channels` FOR EACH ROW UPDATE tb_users AS tu
@@ -168,7 +167,7 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `tb_comments`
+-- Table structure for table `tb_comments`
 --
 
 CREATE TABLE `tb_comments` (
@@ -180,17 +179,20 @@ CREATE TABLE `tb_comments` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Volcado de datos para la tabla `tb_comments`
+-- Dumping data for table `tb_comments`
 --
 
 INSERT INTO `tb_comments` (`id_comment`, `id_channel`, `id_video`, `commented_at`, `content`) VALUES
 (5, 1, 2, '2021-11-25', 'Gracias por la ayuda!'),
-(7, 3, 2, '2021-11-25', 'Muy buen video, puedes hacerlo pero con distribución Fedora?');
+(7, 3, 2, '2021-11-25', 'Muy buen video, puedes hacerlo pero con distribución Fedora?'),
+(8, 2, 11, '2021-11-26', 'Muchas gracias brooooo!'),
+(9, 1, 12, '2021-11-26', 'Puedes hacer ejemplo de cómo instalar Windows 11?'),
+(10, 2, 12, '2021-11-26', 'Rifado');
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `tb_followed`
+-- Table structure for table `tb_followed`
 --
 
 CREATE TABLE `tb_followed` (
@@ -200,7 +202,7 @@ CREATE TABLE `tb_followed` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Disparadores `tb_followed`
+-- Triggers `tb_followed`
 --
 DELIMITER $$
 CREATE TRIGGER `new_follow` AFTER INSERT ON `tb_followed` FOR EACH ROW UPDATE tb_channel SET num_subs = num_subs + 1
@@ -215,7 +217,7 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `tb_users`
+-- Table structure for table `tb_users`
 --
 
 CREATE TABLE `tb_users` (
@@ -234,19 +236,18 @@ CREATE TABLE `tb_users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Volcado de datos para la tabla `tb_users`
+-- Dumping data for table `tb_users`
 --
 
 INSERT INTO `tb_users` (`id_user`, `firstname_user`, `lastname_user`, `name_user`, `mail_user`, `pass_user`, `paypal_info`, `created_at`, `dateBirth_user`, `profileDesc`, `id_channel`, `contentCreator`) VALUES
 (1, 'Joshua Alexis', 'Aviles', 'Learn with Josh', 'a6520150001@utch.edu.mx', '$2y$10$zq5Oz4vEPZqYZrOSgPuztOqCQoUsjtBtuyTKxNM.o0r8y7b8oqVfu', '', '2021-11-24', '2001-02-07', 'TID31BISM', 1, 0),
 (2, 'Gustavo', 'Valladolid', 'GusValla', 'a6520150033@utch.edu.mx', '$2y$10$R3K8SFMZDKHPjfTfn9n4/OApLEtMKKSruo8fpf76BezWPnVFLzxrS', 'churrosaurio17@gmail.com', '2021-11-25', '2002-08-17', 'UTCH BIS Student', 2, 0),
-(3, 'Fabian', 'Escobar', 'Faps13', 'a6520150036@utch.edu.mx', '$2y$10$rqYU0EtEFpn2GnszQ7QGG.yej4XA8y0yZXu3mZLchE1fhlaEF.OWq', '', '2021-11-25', '2002-05-13', 'Software Developer JR', 3, 0),
-(4, 'Carlos', 'Salazar', 'CarSalazar', 'a6520150015@utch.edu.mx', '$2y$10$1hZ0nnfj/BqwypU8l6mNNeKgVFTei.DGqBIsmlTEKGZtkwFxJ4ZJu', 'carlossaulsalazarcruz@gmail.com', '2021-11-25', '2001-08-10', 'Software Developer JR', 4, 0);
+(3, 'Fabian', 'Escobar', 'Faps13', 'a6520150036@utch.edu.mx', '$2y$10$rqYU0EtEFpn2GnszQ7QGG.yej4XA8y0yZXu3mZLchE1fhlaEF.OWq', '', '2021-11-25', '2002-05-13', 'Software Developer JR', 3, 0);
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `tb_videolike`
+-- Table structure for table `tb_videolike`
 --
 
 CREATE TABLE `tb_videolike` (
@@ -256,7 +257,7 @@ CREATE TABLE `tb_videolike` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Disparadores `tb_videolike`
+-- Triggers `tb_videolike`
 --
 DELIMITER $$
 CREATE TRIGGER `dislike` AFTER DELETE ON `tb_videolike` FOR EACH ROW UPDATE tb_videos SET num_likes = num_likes - 1 WHERE id_video = OLD.id_video
@@ -271,7 +272,7 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `tb_videos`
+-- Table structure for table `tb_videos`
 --
 
 CREATE TABLE `tb_videos` (
@@ -289,14 +290,18 @@ CREATE TABLE `tb_videos` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Volcado de datos para la tabla `tb_videos`
+-- Dumping data for table `tb_videos`
 --
 
 INSERT INTO `tb_videos` (`id_video`, `title_video`, `description_video`, `posted_at`, `status_video`, `views_video`, `id_owner`, `num_likes`, `url_video`, `miniature`, `filename`) VALUES
-(2, 'User managment Ubuntu', 'Manejar usuarios en distribución linux Ubuntu', '2021-11-25', 0, 0, 1, 0, '0', 'Captura de pantalla (15).png', 'User management Ubuntu.mp4');
+(2, 'User managment Ubuntu', 'Manejar usuarios en distribución linux Ubuntu', '2021-11-25', 0, 0, 1, 0, '0', 'Captura de pantalla (15).png', 'User management Ubuntu.mp4'),
+(11, 'Process and Package Management on UNIX/Linux', 'Distribución Ubuntu', '2021-11-26', 0, 0, 1, 0, '0', 'ER proyecto - Copia de Copia de ER DIAGRAM StudyFans.png', 'Process and Package Management on UNIX..Linux.mp4'),
+(12, 'UNIX-Linux operating system installation', 'Instalación de Ubuntu en Máquina Virtual Box', '2021-11-26', 0, 0, 1, 0, '0', 'Captura de pantalla (165).png', 'Practice execution report of UNIX.-Linux operating system installation.mp4'),
+(13, 'Lamalá de Pâques', 'Receta de lámala de pâques paso por paso (French Tutorial)', '2021-11-26', 0, 0, 1, 0, '0', 'Captura de pantalla (109).png', 'Comment préparer. le Lamala de Pâques.mp4'),
+(14, '¿Cómo armar un PC?', 'Armar un PC e identificar componentes', '2021-11-26', 0, 0, 1, 0, '0', 'Captura de pantalla (104).png', 'Cómo Armar un PC.mp4');
 
 --
--- Disparadores `tb_videos`
+-- Triggers `tb_videos`
 --
 DELIMITER $$
 CREATE TRIGGER `delated_video` AFTER DELETE ON `tb_videos` FOR EACH ROW UPDATE tb_channels SET num_videos = num_videos - 1 WHERE id_channel = OLD.id_owner
@@ -308,17 +313,17 @@ $$
 DELIMITER ;
 
 --
--- Índices para tablas volcadas
+-- Indexes for dumped tables
 --
 
 --
--- Indices de la tabla `tb_channels`
+-- Indexes for table `tb_channels`
 --
 ALTER TABLE `tb_channels`
   ADD PRIMARY KEY (`id_channel`);
 
 --
--- Indices de la tabla `tb_comments`
+-- Indexes for table `tb_comments`
 --
 ALTER TABLE `tb_comments`
   ADD PRIMARY KEY (`id_comment`),
@@ -326,7 +331,7 @@ ALTER TABLE `tb_comments`
   ADD KEY `tb_comments_ibfk_3` (`id_channel`);
 
 --
--- Indices de la tabla `tb_followed`
+-- Indexes for table `tb_followed`
 --
 ALTER TABLE `tb_followed`
   ADD PRIMARY KEY (`id_follow`),
@@ -334,14 +339,14 @@ ALTER TABLE `tb_followed`
   ADD KEY `tb_followed_ibfk_3` (`id_user`);
 
 --
--- Indices de la tabla `tb_users`
+-- Indexes for table `tb_users`
 --
 ALTER TABLE `tb_users`
   ADD PRIMARY KEY (`id_user`),
   ADD KEY `id_channel` (`id_channel`);
 
 --
--- Indices de la tabla `tb_videolike`
+-- Indexes for table `tb_videolike`
 --
 ALTER TABLE `tb_videolike`
   ADD PRIMARY KEY (`id_like`),
@@ -349,85 +354,85 @@ ALTER TABLE `tb_videolike`
   ADD KEY `tb_videolike_ibfk_3` (`id_channel`);
 
 --
--- Indices de la tabla `tb_videos`
+-- Indexes for table `tb_videos`
 --
 ALTER TABLE `tb_videos`
   ADD PRIMARY KEY (`id_video`),
   ADD KEY `id_owner` (`id_owner`);
 
 --
--- AUTO_INCREMENT de las tablas volcadas
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT de la tabla `tb_channels`
+-- AUTO_INCREMENT for table `tb_channels`
 --
 ALTER TABLE `tb_channels`
   MODIFY `id_channel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT de la tabla `tb_comments`
+-- AUTO_INCREMENT for table `tb_comments`
 --
 ALTER TABLE `tb_comments`
-  MODIFY `id_comment` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_comment` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
--- AUTO_INCREMENT de la tabla `tb_followed`
+-- AUTO_INCREMENT for table `tb_followed`
 --
 ALTER TABLE `tb_followed`
   MODIFY `id_follow` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT de la tabla `tb_users`
+-- AUTO_INCREMENT for table `tb_users`
 --
 ALTER TABLE `tb_users`
   MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT de la tabla `tb_videolike`
+-- AUTO_INCREMENT for table `tb_videolike`
 --
 ALTER TABLE `tb_videolike`
   MODIFY `id_like` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT de la tabla `tb_videos`
+-- AUTO_INCREMENT for table `tb_videos`
 --
 ALTER TABLE `tb_videos`
-  MODIFY `id_video` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_video` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
--- Restricciones para tablas volcadas
+-- Constraints for dumped tables
 --
 
 --
--- Filtros para la tabla `tb_comments`
+-- Constraints for table `tb_comments`
 --
 ALTER TABLE `tb_comments`
   ADD CONSTRAINT `tb_comments_ibfk_2` FOREIGN KEY (`id_video`) REFERENCES `tb_videos` (`id_video`) ON DELETE CASCADE,
   ADD CONSTRAINT `tb_comments_ibfk_3` FOREIGN KEY (`id_channel`) REFERENCES `tb_channels` (`id_channel`) ON DELETE CASCADE;
 
 --
--- Filtros para la tabla `tb_followed`
+-- Constraints for table `tb_followed`
 --
 ALTER TABLE `tb_followed`
   ADD CONSTRAINT `tb_followed_ibfk_2` FOREIGN KEY (`id_channel`) REFERENCES `tb_channels` (`id_channel`) ON DELETE CASCADE,
   ADD CONSTRAINT `tb_followed_ibfk_3` FOREIGN KEY (`id_user`) REFERENCES `tb_channels` (`id_channel`) ON DELETE CASCADE;
 
 --
--- Filtros para la tabla `tb_users`
+-- Constraints for table `tb_users`
 --
 ALTER TABLE `tb_users`
   ADD CONSTRAINT `tb_users_ibfk_1` FOREIGN KEY (`id_channel`) REFERENCES `tb_channels` (`id_channel`) ON DELETE CASCADE;
 
 --
--- Filtros para la tabla `tb_videolike`
+-- Constraints for table `tb_videolike`
 --
 ALTER TABLE `tb_videolike`
   ADD CONSTRAINT `tb_videolike_ibfk_2` FOREIGN KEY (`id_video`) REFERENCES `tb_videos` (`id_video`) ON DELETE CASCADE,
   ADD CONSTRAINT `tb_videolike_ibfk_3` FOREIGN KEY (`id_channel`) REFERENCES `tb_channels` (`id_channel`) ON DELETE CASCADE;
 
 --
--- Filtros para la tabla `tb_videos`
+-- Constraints for table `tb_videos`
 --
 ALTER TABLE `tb_videos`
   ADD CONSTRAINT `tb_videos_ibfk_1` FOREIGN KEY (`id_owner`) REFERENCES `tb_channels` (`id_channel`) ON DELETE CASCADE;
